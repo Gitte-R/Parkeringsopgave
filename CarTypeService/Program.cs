@@ -1,6 +1,5 @@
 using CarTypeService.Services;
 using Polly;
-using Scrutor;
 using System.Net.Http;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +22,7 @@ p.WaitAndRetryAsync(3, attempt => TimeSpan.FromMilliseconds(100 * Math.Pow(2, at
 
 builder.Services.Scan(selector => selector.FromAssemblyOf<IMotorApiService>().AddClasses(classes => classes.AssignableTo<IMotorApiService>()).AsImplementedInterfaces());
 
-var MotorApiKey = builder.Configuration["Parking:MotorApiKey"];
+var MotorApiKey = builder.Configuration["MotorApiKey"];
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
