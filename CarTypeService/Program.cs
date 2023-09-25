@@ -4,12 +4,9 @@ using System.Net.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Add services to the container.
 
 builder.Services.AddControllers();
-
-
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -22,7 +19,6 @@ p.WaitAndRetryAsync(3, attempt => TimeSpan.FromMilliseconds(100 * Math.Pow(2, at
 
 builder.Services.Scan(selector => selector.FromAssemblyOf<IMotorApiService>().AddClasses(classes => classes.AssignableTo<IMotorApiService>()).AsImplementedInterfaces());
 
-var MotorApiKey = builder.Configuration["MotorApiKey"];
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
