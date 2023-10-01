@@ -2,6 +2,7 @@ using System.Linq;
 using EventService.Serivces;
 using ParkingService.Models;
 using SMSService.Services;
+using EmailService.Services;
 
 namespace ParkingService.Services
 {
@@ -9,11 +10,13 @@ namespace ParkingService.Services
     {
         private readonly IEventStore _eventStore;
         private readonly ISMSApiService _smsApiService;
+        private readonly IEmailApiService _emailApiService;
 
-        public ParkingStore(IEventStore eventstore, ISMSApiService smsApiService)
+        public ParkingStore(IEventStore eventstore, ISMSApiService smsApiService, IEmailApiService emailApiService)
         {
             _eventStore = eventstore;
             _smsApiService = smsApiService;
+            _emailApiService = emailApiService;
         }
 
         private static readonly Dictionary<string, Parking> ParkingsDatabase = new Dictionary<string, Parking>();
@@ -36,6 +39,10 @@ namespace ParkingService.Services
             if (phonenumber != null)
             {
                 _smsApiService.SendSMS((string)phonenumber, licenseplate);
+            }
+            if (email != null)
+            {
+                _emailApiService.SendEmail(email, licenseplate);
             }
         }
 

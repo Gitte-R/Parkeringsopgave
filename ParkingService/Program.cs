@@ -1,6 +1,7 @@
 using EventService.Serivces;
 using ParkingService.Services;
 using SMSService.Services;
+using EmailService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IParkingStore, ParkingStore>();
 builder.Services.AddScoped<IEventStore, EventStore>();
 builder.Services.AddScoped<ISMSApiService, SMSApiService>();
+builder.Services.AddScoped<IEmailApiService, EmailApiService>();
 
 var app = builder.Build();
 

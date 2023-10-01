@@ -4,6 +4,6 @@ namespace EmailService.Services
 {
     public interface IEmailApiService
     {
-        public Task SendEmail(string reciever, string subject, string message);
+        public Task SendEmail(string reciever, string licensePlate);
     }
 }

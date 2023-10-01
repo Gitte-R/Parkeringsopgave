@@ -16,15 +16,15 @@ namespace EmailService.Services
             _eventStore = eventstore;
 
         }
-        public async Task SendEmail(string receiver, string subject, string message)
+        public async Task SendEmail(string receiver, string licensePlate)
         {
             string url = $"https://twilioproxy.azurewebsites.net/api/SendEmail?code=qMTJzZtnKGD4c0LgyYHyepoT7VdFOir1Wig9yrU6LeQLAzFuCJeiWw==";
 
             Email newEmail = new Email()
             {
                 Receiver = receiver,
-                Subject = subject,
-                Message = message
+                Subject = $"Registrering af {licensePlate}",
+                Message = $"Din bil med numemrplade {licensePlate} er nu reigstreret og parkeringen er startet."
             };
 
             _eventStore.Raise(newEmail);

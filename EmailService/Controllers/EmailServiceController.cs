@@ -17,9 +17,9 @@ namespace EmailService.Controllers
         }
 
         [HttpPost("SendEmail")]
-        public async Task Post(string reciever, string subject, string message)
+        public async Task Post(string reciever, string licensePlate)
         {
-            await _emailApiService.SendEmail(reciever, subject, message);
+            await _emailApiService.SendEmail(reciever, licensePlate);
         }
     }
 }
