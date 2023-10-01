@@ -24,7 +24,7 @@ namespace EmailService.Services
             {
                 Receiver = receiver,
                 Subject = $"Registrering af {licensePlate}",
-                Message = $"Din bil med numemrplade {licensePlate} er nu reigstreret og parkeringen er startet."
+                Message = $"Din bil med nummerplade {licensePlate} er nu reigstreret og parkeringen er startet."
             };
 
             _eventStore.Raise(newEmail);
