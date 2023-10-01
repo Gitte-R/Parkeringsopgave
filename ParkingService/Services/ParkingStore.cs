@@ -34,8 +34,6 @@ namespace ParkingService.Services
 
             ParkingsDatabase[NewParking.Licenseplate] = NewParking;
 
-            _eventStore.Raise(NewParking);
-
             if (phonenumber != null)
             {
                 _smsApiService.SendSMS((string)phonenumber, licenseplate);
@@ -44,6 +42,8 @@ namespace ParkingService.Services
             {
                 _emailApiService.SendEmail(email, licenseplate);
             }
+
+            _eventStore.Raise(NewParking);
         }
 
 
