@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EventService.Serivces;
+using Microsoft.AspNetCore.Mvc;
+using ParkingService.Models;
+using ParkingService.Services;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+
 
 namespace ParkingService.Controllers
 {
@@ -10,10 +14,12 @@ namespace ParkingService.Controllers
     public class ParkingController : ControllerBase
     {
         private readonly IParkingStore parkingStore;
+        private readonly IEventStore eventStore;
 
-        public ParkingController(IParkingStore parkingStore)
+        public ParkingController(IParkingStore parkingStore, IEventStore eventstore)
         {
             this.parkingStore = parkingStore;
+            this.eventStore = eventstore;
         }
 
         [HttpGet("{licenseplate}")]
@@ -24,17 +30,9 @@ namespace ParkingService.Controllers
 
 
         [HttpPost("RegisterParking")]
-        public Parking Post(string licenseplate, string parkinglot, int? phonenumber, string? email)
+        public void Post(string licenseplate, string parkinglot, string? phonenumber, string? email)
         {
-            Parking NewParking = new(licenseplate);
-            {
-                NewParking.Parkinglot = parkinglot;
-                NewParking.Time = DateTime.Now;
-                NewParking.Phonenumber = phonenumber;
-                NewParking.Email = email;
-            };
-            parkingStore.Save(NewParking);
-            return NewParking;
+            parkingStore.Save(licenseplate, parkinglot, phonenumber, email);
         }
 
 

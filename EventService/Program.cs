@@ -1,7 +1,3 @@
-using EventService.Serivces;
-using ParkingService.Services;
-using SMSService.Services;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,10 +6,6 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddScoped<IParkingStore, ParkingStore>();
-builder.Services.AddScoped<IEventStore, EventStore>();
-builder.Services.AddScoped<ISMSApiService, SMSApiService>();
 
 var app = builder.Build();
 

@@ -1,5 +1,5 @@
 using EventService.Serivces;
-using ParkingService.Services;
+using Polly;
 using SMSService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,9 +11,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IParkingStore, ParkingStore>();
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddScoped<IEventStore, EventStore>();
-builder.Services.AddScoped<ISMSApiService, SMSApiService>();
+
+builder.Services.AddHttpClient<ISMSApiService, SMSApiService>().AddTransientHttpErrorPolicy(p =>
+p.WaitAndRetryAsync(3, attempt => TimeSpan.FromMilliseconds(100 * Math.Pow(2, attempt))));
+
+builder.Services.Scan(selector => selector.FromAssemblyOf<ISMSApiService>().AddClasses(classes => classes.AssignableTo<ISMSApiService>()).AsImplementedInterfaces());
 
 var app = builder.Build();
 

@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>bad46ec8-d63a-454c-a5e4-8175f6f433bd</UserSecretsId>
+    <UserSecretsId>ab9ca8cb-d718-4215-ab9e-ba39098d0a90</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EventService\EventService.csproj" />
-    <ProjectReference Include="..\SMSService\SMSService.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,5 @@
+using EmailService.Services;
 using EventService.Serivces;
-using ParkingService.Services;
-using SMSService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,9 +10,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IParkingStore, ParkingStore>();
 builder.Services.AddScoped<IEventStore, EventStore>();
-builder.Services.AddScoped<ISMSApiService, SMSApiService>();
+
+builder.Services.Scan(selector => selector.FromAssemblyOf<IEmailApiService>().AddClasses(classes => classes.AssignableTo<IEmailApiService>()).AsImplementedInterfaces());
+
 
 var app = builder.Build();
 
