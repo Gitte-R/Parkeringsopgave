@@ -15,9 +15,9 @@ namespace SMSService.Controllers
         }
 
         [HttpPost("SMS")]
-        public async Task SendSMS(string receiver)
+        public async Task SendSMS(string receiver, string licensePlate)
         {
-            await _smsApiService.SendSMS(receiver);
+            await _smsApiService.SendSMS(receiver, licensePlate);
         }
     }
 }

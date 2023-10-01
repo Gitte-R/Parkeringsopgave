@@ -15,15 +15,15 @@ namespace SMSService.Services
             _configuration = configuration;
             _eventstore = eventstore;
         }
-        public async Task SendSMS(string receiver)
+        public async Task SendSMS(string receiver, string licensePlate)
         {
             string url = $"https://twilioproxy.azurewebsites.net/api/SendSMS?code=biIj0VMV608PIppCMrQDNn477AqqA7-w4a7mE8kug2HvAzFuxgovmQ==";
             string key = _configuration.GetValue<string>("Key");
             SMS newSMS = new()
             {
                 Receiver = receiver,
-                Message = $"Din bil med nummerplade XX er registreret.",
-                Key = key
+                Message = $"Din bil med nummerplade {licensePlate} er registreret.",
+                Key = key,
             };
 
             _eventstore.Raise(newSMS);

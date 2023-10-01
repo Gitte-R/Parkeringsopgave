@@ -35,7 +35,7 @@ namespace ParkingService.Services
 
             if (phonenumber != null)
             {
-                _smsApiService.SendSMS((string)phonenumber);
+                _smsApiService.SendSMS((string)phonenumber, licenseplate);
             }
         }
 
