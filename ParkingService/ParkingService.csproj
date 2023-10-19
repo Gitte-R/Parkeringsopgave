@@ -16,10 +16,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\EmailService\EmailService.csproj" />
-    <ProjectReference Include="..\EventService\EventService.csproj" />
-    <ProjectReference Include="..\SMSService\SMSService.csproj" />
-  </ItemGroup>
-
 </Project>

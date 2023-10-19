@@ -1,4 +1,3 @@
-using EventService.Serivces;
 using Polly;
 using SMSService.Services;
 
@@ -12,7 +11,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
-builder.Services.AddScoped<IEventStore, EventStore>();
 
 builder.Services.AddHttpClient<ISMSApiService, SMSApiService>().AddTransientHttpErrorPolicy(p =>
 p.WaitAndRetryAsync(3, attempt => TimeSpan.FromMilliseconds(100 * Math.Pow(2, attempt))));

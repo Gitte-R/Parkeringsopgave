@@ -1,19 +1,14 @@
-﻿using EventService.Serivces;
-using Microsoft.Extensions.Configuration;
-using SMSService.Models;
-using System.Net.Http;
+﻿using SMSService.Models;
 
 namespace SMSService.Services
 {
     public class SMSApiService : ISMSApiService
     {
         private readonly IConfiguration _configuration;
-        private readonly IEventStore _eventstore;
 
-        public SMSApiService(IConfiguration configuration, IEventStore eventstore)
+        public SMSApiService(IConfiguration configuration)
         {
             _configuration = configuration;
-            _eventstore = eventstore;
         }
         public async Task SendSMS(string receiver, string licensePlate)
         {
@@ -25,8 +20,6 @@ namespace SMSService.Services
                 Message = $"Din bil med nummerplade {licensePlate} er registreret.",
                 Key = key,
             };
-
-            _eventstore.Raise(newSMS);
 
             HttpClient httpClient = new HttpClient();
             await httpClient.PostAsJsonAsync(url, newSMS);

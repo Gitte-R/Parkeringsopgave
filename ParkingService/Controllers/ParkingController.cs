@@ -1,5 +1,4 @@
-﻿using EventService.Serivces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ParkingService.Models;
 using ParkingService.Services;
 using System.Security.Cryptography.X509Certificates;
@@ -14,12 +13,10 @@ namespace ParkingService.Controllers
     public class ParkingController : ControllerBase
     {
         private readonly IParkingStore parkingStore;
-        private readonly IEventStore eventStore;
 
-        public ParkingController(IParkingStore parkingStore, IEventStore eventstore)
+        public ParkingController(IParkingStore parkingStore)
         {
             this.parkingStore = parkingStore;
-            this.eventStore = eventstore;
         }
 
         [HttpGet("{licenseplate}")]

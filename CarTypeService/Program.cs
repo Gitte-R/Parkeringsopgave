@@ -13,6 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+builder.Services.AddScoped<IMotorApiService, MotorApiService>();
 
 builder.Services.AddHttpClient<IMotorApiService, MotorApiService>().AddTransientHttpErrorPolicy(p =>
 p.WaitAndRetryAsync(3, attempt => TimeSpan.FromMilliseconds(100 * Math.Pow(2, attempt))));

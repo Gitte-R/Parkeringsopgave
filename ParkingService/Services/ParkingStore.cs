@@ -1,22 +1,15 @@
-using System.Linq;
-using EventService.Serivces;
 using ParkingService.Models;
-using SMSService.Services;
-using EmailService.Services;
+using ParkingService.Events;
 
 namespace ParkingService.Services
 {
     public class ParkingStore : IParkingStore
     {
-        private readonly IEventStore _eventStore;
-        private readonly ISMSApiService _smsApiService;
-        private readonly IEmailApiService _emailApiService;
+        private readonly IEventStore eventStore;
 
-        public ParkingStore(IEventStore eventstore, ISMSApiService smsApiService, IEmailApiService emailApiService)
+        public ParkingStore(IEventStore eventStore)
         {
-            _eventStore = eventstore;
-            _smsApiService = smsApiService;
-            _emailApiService = emailApiService;
+            this.eventStore = eventStore;
         }
 
         private static readonly Dictionary<string, Parking> ParkingsDatabase = new Dictionary<string, Parking>();
@@ -24,26 +17,16 @@ namespace ParkingService.Services
 
         public void Save(string licenseplate, string parkinglot, string? phonenumber, string? email) 
         {
-            Parking NewParking = new(licenseplate);
+            Parking NewParking = new Parking(licenseplate)
             {
-                NewParking.Parkinglot = parkinglot;
-                NewParking.Time = DateTime.Now;
-                NewParking.Phonenumber = phonenumber;
-                NewParking.Email = email;
+                Parkinglot = parkinglot,
+                Time = DateTime.Now,
+                Phonenumber = phonenumber,
+                Email = email
             };
 
+            this.eventStore.RaiseEvent("ParkingStarted", NewParking);
             ParkingsDatabase[NewParking.Licenseplate] = NewParking;
-
-            if (phonenumber != null)
-            {
-                _smsApiService.SendSMS((string)phonenumber, licenseplate);
-            }
-            if (email != null)
-            {
-                _emailApiService.SendEmail(email, licenseplate);
-            }
-
-            _eventStore.Raise(NewParking);
         }
 
 
@@ -51,6 +34,7 @@ namespace ParkingService.Services
         {
             if (ParkingsDatabase.ContainsKey(licenseplate))
             {
+                this.eventStore.RaiseEvent("ParkingEnded", ParkingsDatabase[licenseplate]);
                 ParkingsDatabase.Remove(licenseplate);
             }
         }
