@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EmailService.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("Emailcontroller")]
     public class EmailServiceController : Controller
     {
         private readonly IEmailApiService _emailApiService;

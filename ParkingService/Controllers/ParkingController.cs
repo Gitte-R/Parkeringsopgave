@@ -9,7 +9,7 @@ using System.Xml.Linq;
 namespace ParkingService.Controllers
 {
     [Route("/parking")]
-    //[ApiController]
+    [ApiController]
     public class ParkingController : ControllerBase
     {
         private readonly IParkingStore parkingStore;

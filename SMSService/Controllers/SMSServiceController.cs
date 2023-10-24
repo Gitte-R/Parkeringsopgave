@@ -4,7 +4,7 @@ using SMSService.Services;
 namespace SMSService.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("/SMScontroller/")]
     public class SMSServiceController : ControllerBase
     {
         private readonly ISMSApiService _smsApiService;
@@ -14,7 +14,7 @@ namespace SMSService.Controllers
             _smsApiService = smsApiService;
         }
 
-        [HttpPost("SMS")]
+        [HttpPost("")]
         public async Task SendSMS(string receiver, string licensePlate)
         {
             await _smsApiService.SendSMS(receiver, licensePlate);
