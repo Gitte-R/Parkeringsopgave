@@ -16,12 +16,11 @@ namespace ConsoleApp
             this.httpClient = httpClient;
         }
 
-        public async Task<HttpResponseMessage> SendSMS(string receiver, string licensePlate)
+        public async Task SendSMS(string receiver, string licensePlate)
         {
             var user = new { receiver, licensePlate};
-            httpClient.BaseAddress = new Uri("https://localhost:32772");
-            return await this.httpClient.PostAsync("",
-              CreateBody(user));
+            //httpClient.BaseAddress = new Uri("https://localhost/SMScontroller:32770");
+            await this.httpClient.PostAsync("https://localhost/SMScontroller:32770", CreateBody(user));
         }
 
         private static StringContent CreateBody(object user) =>

@@ -14,9 +14,9 @@
 
         public IEnumerable<EventFeedEvent> GetEvents(int start, int end)
           => DatabaseOfEvents
-            .Where(e => start <= e.SequenceNumber && e.SequenceNumber < end)
-            .OrderBy(e => e.SequenceNumber);
+            .Where(e => start <= e.sequenceNumber && e.sequenceNumber < end)
+            .OrderBy(e => e.sequenceNumber);
     }
 
-    public record EventFeedEvent(long SequenceNumber, DateTimeOffset OccuredAt, string Name, object Content);
+    public record EventFeedEvent(long sequenceNumber, DateTimeOffset occuredAt, string name, object content);
 }

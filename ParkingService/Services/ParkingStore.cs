@@ -20,11 +20,11 @@ namespace ParkingService.Services
         }
 
         private static readonly Dictionary<string, Parking> ParkingsDatabase = new Dictionary<string, Parking>();
-        public Parking Get(string licenseplate) => ParkingsDatabase.ContainsKey(licenseplate) ? ParkingsDatabase[licenseplate] : new Parking(licenseplate);
+        public Parking Get(string licensplate) => ParkingsDatabase.ContainsKey(licensplate) ? ParkingsDatabase[licensplate] : new Parking(licensplate);
 
-        public void Save(string licenseplate, string parkinglot, string? phonenumber, string? email) 
+        public void Save(string licensplate, string parkinglot, string? phonenumber, string? email) 
         {
-            Parking NewParking = new Parking(licenseplate)
+            Parking NewParking = new Parking(licensplate)
             {
                 Parkinglot = parkinglot,
                 Time = DateTime.Now,
@@ -33,15 +33,15 @@ namespace ParkingService.Services
             };
 
             this.eventStore.RaiseEvent("ParkingStarted", NewParking);
-            ParkingsDatabase[NewParking.Licenseplate] = NewParking;
+            ParkingsDatabase[NewParking.Licensplate] = NewParking;
         }
 
-        public void Remove(string licenseplate)
+        public void Remove(string licensplate)
         {
-            if (ParkingsDatabase.ContainsKey(licenseplate))
+            if (ParkingsDatabase.ContainsKey(licensplate))
             {
-                this.eventStore.RaiseEvent("ParkingEnded", ParkingsDatabase[licenseplate]);
-                ParkingsDatabase.Remove(licenseplate);
+                this.eventStore.RaiseEvent("ParkingEnded", ParkingsDatabase[licensplate]);
+                ParkingsDatabase.Remove(licensplate);
             }
         }
 

@@ -19,24 +19,24 @@ namespace ParkingService.Controllers
             this.parkingStore = parkingStore;
         }
 
-        [HttpGet("{licenseplate}")]
-        public Parking Get(string licenseplate) 
+        [HttpGet("{licensplate}")]
+        public Parking Get(string licensplate) 
         {
-            return parkingStore.Get(licenseplate);
+            return parkingStore.Get(licensplate);
         }
 
 
         [HttpPost("RegisterParking")]
-        public void Post(string licenseplate, string parkinglot, string? phonenumber, string? email)
+        public void Post(string licensplate, string parkinglot, string? phonenumber, string? email)
         {
-            parkingStore.Save(licenseplate, parkinglot, phonenumber, email);
+            parkingStore.Save(licensplate, parkinglot, phonenumber, email);
         }
 
 
-        [HttpDelete(Name = "DeleteParking{licenseplate}")]
-        public void Delete(string licenseplate)
+        [HttpDelete(Name = "DeleteParking{licensplate}")]
+        public void Delete(string licensplate)
         {
-            parkingStore.Remove(licenseplate);
+            parkingStore.Remove(licensplate);
         }
     }
 }

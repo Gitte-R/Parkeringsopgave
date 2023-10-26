@@ -8,13 +8,10 @@ Console.WriteLine("Hello, World!");
 long start = 0;
 var end = 100;
 var client = new HttpClient();
-//client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 Console.ReadKey();
-using var resp = await client.GetAsync(new Uri($"https://localhost:32770/events/test?start={start}&end={end}"));
-//using var resp = await client.GetAsync(new Uri($"https://localhost:32770/events/test?start=1&end=2"));
-//using var resp = await client.GetAsync(new Uri($"https://localhost:32770/events/test?start=1&end=2"));
-//https://localhost:32770/events/test?start=1&end=2
-//var respAsJson = await resp.Content.ReadFromJsonAsync<ParkingServiceEvent>();
+using var resp = await client.GetAsync(new Uri($"https://localhost:32768/events/test/?start={start}&end={end}"));
+
 await ProcessEvents(await resp.Content.ReadAsStreamAsync());
 await SaveStartIdToDataStore(start);
 
@@ -24,21 +21,25 @@ await SaveStartIdToDataStore(start);
 // fake implementation. Should apply business rules to events
 async Task ProcessEvents(Stream content)
 {
-    var events = await JsonSerializer.DeserializeAsync<ParkingServiceEvent[]>(content) ?? new ParkingServiceEvent[0];
+    Gateway gat1 = new Gateway(new HttpClient());
+
+    //var events = await JsonSerializer.DeserializeAsync<ParkingServiceEvent[]>(content);
+    var events = await JsonSerializer.DeserializeAsync<EventFeedEvent[]>(content) ?? new EventFeedEvent[0];
     foreach (var @event in events)
     {
         Console.WriteLine(@event);
-        start = Math.Max(start, @event.SequenceNumber + 1);
+        start = Math.Max(start, @event.sequenceNumber + 1);
+        await gat1.SendSMS(@event.content.phonenumber, @event.content.licensplate);
+
     }
 }
 
 
-//Gateway gat1 = new Gateway(new HttpClient());
-//await gat1.SendSMS("+4521970411", "CN17870");
 
 Task SaveStartIdToDataStore(long startId) => Task.CompletedTask;
 
-public record ParkingServiceEvent(long SequenceNumber, DateTimeOffset OccuredAt, string Name, object Content);
+public record EventFeedEvent(long sequenceNumber, DateTimeOffset occuredAt, string name, Parking content);
+public record Parking (string licensplate, DateTimeOffset time, string parkinglot, string? phonenumber, string? email);
 
 
 

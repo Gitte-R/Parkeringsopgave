@@ -2,15 +2,15 @@
 {
     public class Parking
     {
-        public string Licenseplate { get; set; }
+        public string Licensplate { get; set; }
         public DateTime Time { get; set; }
         public string Parkinglot { get; set; }
         public string? Phonenumber { get; set; }
         public string? Email { get; set; }
 
-        public Parking(string licenseplate)
+        public Parking(string licensplate)
         {
-            Licenseplate = licenseplate;
+            Licensplate = licensplate;
         }
     }
 }
