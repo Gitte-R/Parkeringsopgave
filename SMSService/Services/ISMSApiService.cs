@@ -2,6 +2,6 @@
 {
     public interface ISMSApiService
     {
-        public Task SendSMS(string reciever, string LicensePlate);
+        public Task SendSMS(string reciever, string Licensplate);
     }
 }
