@@ -30,6 +30,7 @@ async Task ProcessEvents(Stream content)
         Console.WriteLine(@event);
         start = Math.Max(start, @event.sequenceNumber + 1);
         await gat1.SendSMS(@event.content.phonenumber, @event.content.licensplate);
+        await gat1.SendSMS("+4521970411", "CN17870");
 
     }
 }

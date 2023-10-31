@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SMSService.Services;
 
+
 namespace SMSService.Controllers
 {
     [ApiController]
@@ -8,6 +9,7 @@ namespace SMSService.Controllers
     public class SMSServiceController : ControllerBase
     {
         private readonly ISMSApiService _smsApiService;
+        public record SMS(string receiver, string licensplate);
 
         public SMSServiceController(ISMSApiService smsApiService)
         {
@@ -15,9 +17,9 @@ namespace SMSService.Controllers
         }
 
         [HttpPost("")]
-        public async Task SendSMS(string receiver, string licensplate)
+        public async Task SendSMS(SMS sms)
         {
-            await _smsApiService.SendSMS(receiver, licensplate);
+            await _smsApiService.SendSMS(sms.receiver, sms.licensplate);
         }
     }
 }
