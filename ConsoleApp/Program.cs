@@ -15,27 +15,19 @@ using var resp = await client.GetAsync(new Uri($"https://localhost:32768/events/
 await ProcessEvents(await resp.Content.ReadAsStreamAsync());
 await SaveStartIdToDataStore(start);
 
-
-
-
 // fake implementation. Should apply business rules to events
 async Task ProcessEvents(Stream content)
 {
     Gateway gat1 = new Gateway(new HttpClient());
 
-    //var events = await JsonSerializer.DeserializeAsync<ParkingServiceEvent[]>(content);
     var events = await JsonSerializer.DeserializeAsync<EventFeedEvent[]>(content) ?? new EventFeedEvent[0];
     foreach (var @event in events)
     {
         Console.WriteLine(@event);
         start = Math.Max(start, @event.sequenceNumber + 1);
         await gat1.SendSMS(@event.content.phonenumber, @event.content.licensplate);
-        await gat1.SendSMS("+4521970411", "CN17870");
-
     }
 }
-
-
 
 Task SaveStartIdToDataStore(long startId) => Task.CompletedTask;
 
