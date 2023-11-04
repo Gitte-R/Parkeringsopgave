@@ -18,14 +18,15 @@ await SaveStartIdToDataStore(start);
 // fake implementation. Should apply business rules to events
 async Task ProcessEvents(Stream content)
 {
-    Gateway gat1 = new Gateway(new HttpClient());
+    Gateway newGateway = new Gateway(new HttpClient());
 
     var events = await JsonSerializer.DeserializeAsync<EventFeedEvent[]>(content) ?? new EventFeedEvent[0];
     foreach (var @event in events)
     {
         Console.WriteLine(@event);
         start = Math.Max(start, @event.sequenceNumber + 1);
-        await gat1.SendSMS(@event.content.phonenumber, @event.content.licensplate);
+        await newGateway.SendSMS(@event.content.phonenumber, @event.content.licensplate);
+        await newGateway.SendEmail(@event.content.email, @event.content.licensplate);
     }
 }
 

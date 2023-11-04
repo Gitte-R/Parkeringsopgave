@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EmailService.Controllers
 {
     [ApiController]
-    [Route("Emailcontroller")]
+    [Route("/Emailcontroller/")]
     public class EmailServiceController : Controller
     {
         private readonly IEmailApiService _emailApiService;
@@ -16,10 +16,10 @@ namespace EmailService.Controllers
 
         }
 
-        [HttpPost("SendEmail")]
-        public async Task Post(string reciever, string licensePlate)
+        [HttpPost("")]
+        public async Task Post(string receiver, string licensPlate)
         {
-            await _emailApiService.SendEmail(reciever, licensePlate);
+            await _emailApiService.SendEmail(receiver, licensPlate);
         }
     }
 }

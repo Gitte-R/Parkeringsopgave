@@ -22,7 +22,14 @@ namespace ConsoleApp
             SMS newsms = new(receiver, licensplate);
             await httpClient.PostAsJsonAsync($"https://localhost:32770/SMScontroller", newsms);
         }
+
+        public async Task SendEmail(string receiver, string licensplate)
+        {
+            Email newemail = new(receiver, licensplate);
+            await httpClient.PostAsJsonAsync($"https://localhost:32772/Emailcontroller", newemail);
+        }
     }
     public record SMS(string receiver, string licensplate);
+    public record Email(string receiver, string licensplate);
 
 }
