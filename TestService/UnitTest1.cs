@@ -9,6 +9,7 @@ namespace TestService
         public void TestParkingPParkinglotNotNull()
         {
             var parking = new Parking("DD45645");
+            parking.Parkinglot = "Stranden";
             Assert.NotNull(parking.Parkinglot);
         }
     }
