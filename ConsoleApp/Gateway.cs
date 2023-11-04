@@ -20,13 +20,13 @@ namespace ConsoleApp
         public async Task SendSMS(string receiver, string licensplate)
         {
             SMS newsms = new(receiver, licensplate);
-            await httpClient.PostAsJsonAsync($"https://localhost:32770/SMScontroller", newsms);
+            await httpClient.PostAsJsonAsync($"https://localhost:32768/SMScontroller", newsms);
         }
 
         public async Task SendEmail(string receiver, string licensplate)
         {
             Email newemail = new(receiver, licensplate);
-            await httpClient.PostAsJsonAsync($"https://localhost:32772/Emailcontroller", newemail);
+            await httpClient.PostAsJsonAsync($"https://localhost:32770/Emailcontroller", newemail);
         }
     }
     public record SMS(string receiver, string licensplate);
