@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMSService", "SMSService\SM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{7A9B7B45-6BA7-4334-8EC5-17260760EC11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestService", "TestService\TestService.csproj", "{72F6D27F-87BA-47D5-A9DC-64C2A6EA8230}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{7A9B7B45-6BA7-4334-8EC5-17260760EC11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A9B7B45-6BA7-4334-8EC5-17260760EC11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A9B7B45-6BA7-4334-8EC5-17260760EC11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72F6D27F-87BA-47D5-A9DC-64C2A6EA8230}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72F6D27F-87BA-47D5-A9DC-64C2A6EA8230}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72F6D27F-87BA-47D5-A9DC-64C2A6EA8230}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72F6D27F-87BA-47D5-A9DC-64C2A6EA8230}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

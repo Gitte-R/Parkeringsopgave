@@ -15,7 +15,7 @@ namespace ParkingService.Controllers
         }
 
 
-        [HttpGet("test")]
+        [HttpGet("")]
         public ActionResult<List<EventFeedEvent>> GetEvents([FromQuery] int start, [FromQuery] int end)
         {
             if (start < 0 || end < start)
