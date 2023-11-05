@@ -2,6 +2,7 @@
 {
     public class Parking
     {
+        public int Id { get; set; }
         public string Licensplate { get; set; }
         public DateTime Time { get; set; }
         public string Parkinglot { get; set; }

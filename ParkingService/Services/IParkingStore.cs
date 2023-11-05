@@ -4,8 +4,8 @@ namespace ParkingService.Services
 {
     public interface IParkingStore
     {
-        Parking Get(string licenseplate);
-        void Save(string licenseplate, string parkinglot, string? phonenumber, string? email);
-        void Remove(string licenseplate);
+        Task<Parking> GetParking(string licenseplate);
+        void SaveParking(string licenseplate, string parkinglot, string? phonenumber, string? email);
+        void RemoveParking(string licenseplate);
     }
 }

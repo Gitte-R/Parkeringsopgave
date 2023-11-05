@@ -1,10 +1,13 @@
 using ParkingService.Services;
 using Polly;
 using ParkingService.Events;
+using Microsoft.EntityFrameworkCore;
+using ParkingService.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

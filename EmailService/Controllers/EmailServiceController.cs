@@ -6,9 +6,10 @@ namespace EmailService.Controllers
 {
     [ApiController]
     [Route("/Emailcontroller/")]
-    public class EmailServiceController : Controller
+    public class EmailServiceController : ControllerBase
     {
         private readonly IEmailApiService _emailApiService;
+        public record Email(string receiver, string licensplate);
 
         public EmailServiceController(IEmailApiService emailApiService)
         {
@@ -17,9 +18,9 @@ namespace EmailService.Controllers
         }
 
         [HttpPost("")]
-        public async Task Post(string receiver, string licensPlate)
+        public async Task Post(Email email)
         {
-            await _emailApiService.SendEmail(receiver, licensPlate);
+            await _emailApiService.SendEmail(email.receiver, email.licensplate);
         }
     }
 }

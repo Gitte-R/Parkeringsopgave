@@ -10,7 +10,7 @@ var end = 100;
 var client = new HttpClient();
 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 Console.ReadKey();
-using var resp = await client.GetAsync(new Uri($"https://localhost:32768/events/?start={start}&end={end}"));
+using var resp = await client.GetAsync(new Uri($"https://localhost:32786/events/?start={start}&end={end}"));
 
 await ProcessEvents(await resp.Content.ReadAsStreamAsync());
 await SaveStartIdToDataStore(start);
